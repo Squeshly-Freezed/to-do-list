@@ -7,7 +7,7 @@ export default class Project {
     }
     
     addToDo(toDo) {
-        this.toDoArray.push(toDo)
+        this.toDoArray.push(toDo);
     }
     removeToDo(toDo) {
         this.toDoArray.splice(this.toDoArray.indexOf(toDo, 0), 1);
