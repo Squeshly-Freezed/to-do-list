@@ -105,7 +105,7 @@ body {
     flex: 1;
     .side-bar {
         flex: 1;
-        padding: clamp(0.2rem, 0.4rem + 1vw, 1rem);
+        padding: clamp(0.5rem, 2rem + 1vw, 3rem);
         background-color: whitesmoke;
         border-bottom-left-radius: 3px;
         border-right: 1px solid rgb(190, 190, 190);
@@ -113,7 +113,7 @@ body {
     }
     .main-bar {
         flex: 3;
-        padding: clamp(0.2rem, 1rem + 1vw, 2rem);
+        padding: clamp(0.5rem, 2rem + 1vw, 3rem);
         background-color: white;
         border-bottom-right-radius: 3px;
         font-size: clamp(0.2rem, 1vw + 0.5rem, 2rem);

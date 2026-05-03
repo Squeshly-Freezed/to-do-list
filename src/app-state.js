@@ -41,7 +41,7 @@ export default class AppState {
         localStorage.setItem("notes", JSON.stringify(this.noteArray));
     }
     static loadFromStorage() {
-        this.projectArray = JSON.parse(localStorage.getItem("projects"));
-        this.noteArray = JSON.parse(localStorage.getItem("notes"));
+        this.projectArray = JSON.parse(localStorage.getItem("projects")) ?? "";
+        this.noteArray = JSON.parse(localStorage.getItem("notes")) ?? "";
     }
 }
