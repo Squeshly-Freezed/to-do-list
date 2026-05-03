@@ -11,6 +11,8 @@ export default class ScreenController {
         document.querySelector(".logo").src = logo;
         document.querySelector(".button-add").addEventListener("click", ScreenController.displayItemCreator);
         ScreenController.modal = document.querySelector(".modal");
+        AppState.addDefaultProject();
+        console.log(AppState.projectArray);
     }
     static displayItemCreator() {
         ScreenController.modal.showModal();
@@ -18,6 +20,9 @@ export default class ScreenController {
         ScreenController.modal.classList.add("ledger");
         ScreenController.modal.classList.add("heading");
         ScreenController.modal.classList.add("ledger-inner");
+        const sideBar = ScreenController.modal.querySelector(".side-bar");
+        const mainBar = ScreenController.modal.querySelector(".main-bar");
+        // sideBar.textContent = "poo";
     }
     static displayItem() {
         // static createItem();

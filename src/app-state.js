@@ -6,16 +6,28 @@ export default class AppState {
     static projectArray = [];
     static noteArray = [];
 
-    addProject(project) {
+    static addProject(project) {
         this.projectArray.push(project);
     }
-    removeProject(project) {
+    static removeProject(project) {
         this.projectArray.splice(this.projectArray.indexOf(project, 0), 1);
     }
-    addNote(note) {
+    static addNote(note) {
         this.noteArray.push(note);
     }
-    removeNote(note) {
+    static removeNote(note) {
         this.noteArray.splice(this.noteArray.indexOf(note, 0), 1);
+    }
+    static hasVisited() {
+        if (!localStorage.getItem("hasVisited")) {
+            localStorage.setItem("hasVisited", "true");
+            return false;
+        }
+        return true;
+    }
+    static addDefaultProject() {
+        if (!this.hasVisited()) {
+            this.addProject(new Project("Home"));
+        }
     }
 }
