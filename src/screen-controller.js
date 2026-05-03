@@ -9,13 +9,15 @@ export default class ScreenController {
     static init() {
         document.querySelector(".main-container").style.backgroundImage = `url(${background})`;
         document.querySelector(".logo").src = logo;
-        document.querySelector(".button-add").addEventListener("click", ScreenController.displayItemCreation);
+        document.querySelector(".button-add").addEventListener("click", ScreenController.displayItemCreator);
+        ScreenController.modal = document.querySelector(".modal");
     }
-    static displayItemCreation() {
-        const modal = document.createElement("dialog");
-        modal.classList.add("modal");
-        document.body.appendChild(modal);
-        modal.showModal();
+    static displayItemCreator() {
+        ScreenController.modal.showModal();
+        ScreenController.modal.classList.add("modal");
+        ScreenController.modal.classList.add("ledger");
+        ScreenController.modal.classList.add("heading");
+        ScreenController.modal.classList.add("ledger-inner");
     }
     static displayItem() {
         // static createItem();

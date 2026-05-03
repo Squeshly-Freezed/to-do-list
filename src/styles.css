@@ -49,49 +49,49 @@ body {
                 0px 0px 10px 2px rgb(85, 247, 239);
 }
 
-    .heading {
+.heading {
+    display: flex;
+    font-size: clamp(0.8rem, 3vw + 0.5rem, 3rem);
+    margin: 10px;
+    color: rgb(255, 243, 243);
+    flex-shrink: 0;
+    justify-self: center;
+    text-shadow: 0px 0px 2px white;
+    font-style: italic;
+    .button-wrapper {
         display: flex;
-        font-size: clamp(0.8rem, 3vw + 0.5rem, 3rem);
-        margin: 10px;
-        color: rgb(255, 243, 243);
-        flex-shrink: 0;
-        justify-self: center;
-        text-shadow: 0px 0px 2px white;
-        font-style: italic;
-        .button-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 200px;
-            margin-left: auto;
-            .button-add {
-                flex: 1;
-                all: unset;
-                cursor: pointer;
-                background: linear-gradient(to right, white 50%, black 50%);
-                background-size: 200% 100%;
-                background-position: right;
-                transition: background-position 0.05s ease;
-                border-radius: 48%;
-                color: rgb(85, 247, 239);
-                width: 3.25em;
-                text-align: center;
-                text-shadow: 0px 0px 2px rgb(85, 247, 239);
-                animation: pulse 2.5s infinite;
-                box-shadow: 5px 5px 15px 1px rgb(57, 65, 65);
-                &:active {
-                    background-position: left;
-                }
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        margin-left: auto;
+        .button-add {
+            flex: 1;
+            all: unset;
+            cursor: pointer;
+            background: linear-gradient(to right, rgb(255, 255, 255) 50%, rgb(0, 0, 0) 50%);
+            background-size: 200% 100%;
+            background-position: right;
+            transition: background-position 0.05s ease;
+            border-radius: 50%;
+            color: rgb(85, 247, 239);
+            width: 3.25em;
+            text-align: center;
+            text-shadow: 0px 0px 5px rgb(85, 247, 239);
+            animation: pulse 2.5s infinite;
+            box-shadow: 5px 5px 15px 1px rgb(57, 65, 65);
+            &:active {
+                background-position: left;
             }
         }
     }
+}
 
 @keyframes pulse {
     0% {
         transform: scale(1.0);
     }
     50% {
-        transform: scale(1.1);
+        transform: scale(1.15);
     }
     100% {
         transform: scale(1.0);
@@ -105,19 +105,31 @@ body {
     flex: 1;
     .side-bar {
         flex: 1;
+        padding: clamp(0.2rem, 0.4rem + 1vw, 1rem);
         background-color: whitesmoke;
         border-bottom-left-radius: 3px;
         border-right: 1px solid rgb(190, 190, 190);
+        font-size: clamp(0.2rem, 1vw + 0.5rem, 2rem);
     }
     .main-bar {
         flex: 3;
+        padding: clamp(0.2rem, 1rem + 1vw, 2rem);
         background-color: white;
         border-bottom-right-radius: 3px;
+        font-size: clamp(0.2rem, 1vw + 0.5rem, 2rem);
     }
 }
 
 .modal {
-
+    padding: 0px;
+    border: none;
+    border-radius: 3px;
+    margin-top: 10vh;
+    width: clamp(10vw, 50vw, 60vw);
+    color: black;
+    &::backdrop {
+        backdrop-filter: blur(5px);
+    }
 }
 
 .footer {
@@ -126,6 +138,7 @@ body {
     align-items: center;
     justify-content: center;
     color: whitesmoke;
+    padding: 5px;
     .logo {
         height: 45px;
         width: 45px;
@@ -136,5 +149,9 @@ body {
     .ledger {
         margin: 0dvh;
         height: 100dvh;
+    }
+    .modal {
+        height: 70%;
+        width: 100%;
     }
 }
