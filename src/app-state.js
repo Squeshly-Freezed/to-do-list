@@ -6,6 +6,15 @@ export default class AppState {
     static projectArray = [];
     static noteArray = [];
 
+    static init() {
+        if (!this.isPastVisitor()) {
+            this.setVisitorFlag();
+            this.addDefaultProject();
+        }
+        else {
+            //load from storage
+        }
+    }
     static addProject(project) {
         this.projectArray.push(project);
     }
@@ -18,16 +27,13 @@ export default class AppState {
     static removeNote(note) {
         this.noteArray.splice(this.noteArray.indexOf(note, 0), 1);
     }
-    static hasVisited() {
-        if (!localStorage.getItem("hasVisited")) {
-            localStorage.setItem("hasVisited", "true");
-            return false;
-        }
-        return true;
+    static isPastVisitor() {
+        if (localStorage.getItem("hasVisited")) return true;
+    }
+    static setVisitorFlag() {
+        localStorage.setItem("hasVisited", "true");
     }
     static addDefaultProject() {
-        if (!this.hasVisited()) {
-            this.addProject(new Project("Home"));
-        }
+        this.addProject(new Project("Home"));
     }
 }

@@ -1,4 +1,4 @@
-import AppState, { proj } from "./app-state.js";
+import AppState from "./app-state.js";
 import "./styles.css";
 import background from "./img/desk-background.webp";
 import logo from "./img/squeshly-freezed-v2-transparent.png";
@@ -11,8 +11,6 @@ export default class ScreenController {
         document.querySelector(".logo").src = logo;
         document.querySelector(".button-add").addEventListener("click", ScreenController.displayItemCreator);
         ScreenController.modal = document.querySelector(".modal");
-        AppState.addDefaultProject();
-        console.log(AppState.projectArray);
     }
     static displayItemCreator() {
         ScreenController.modal.showModal();
