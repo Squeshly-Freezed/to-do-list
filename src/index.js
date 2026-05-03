@@ -1,4 +1,4 @@
 import ScreenController from "./screen-controller.js";
 
 
-let sc = new ScreenController();
+ScreenController.init();

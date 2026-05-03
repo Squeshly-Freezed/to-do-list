@@ -3,11 +3,23 @@ import "./styles.css";
 import background from "./img/desk-background.webp";
 import logo from "./img/squeshly-freezed-v2-transparent.png";
 
-const mainContainer = document.querySelector(".main-container");
-mainContainer.style.backgroundImage = `url(${background})`;
-const logoImage = document.querySelector(".logo");
-logoImage.src = logo;
+
 
 export default class ScreenController {
-    
+    static init() {
+        document.querySelector(".main-container").style.backgroundImage = `url(${background})`;
+        document.querySelector(".logo").src = logo;
+        document.querySelector(".button-add").addEventListener("click", ScreenController.displayItemCreation);
+    }
+    static displayItemCreation() {
+        const modal = document.createElement("dialog");
+        modal.classList.add("modal");
+        document.body.appendChild(modal);
+        modal.showModal();
+    }
+    static displayItem() {
+        // static createItem();
+        // static addToSideBar();
+    }
+
 }

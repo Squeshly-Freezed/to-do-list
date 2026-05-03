@@ -68,16 +68,19 @@ body {
                 flex: 1;
                 all: unset;
                 cursor: pointer;
-                background-color: rgb(255, 255, 255);
+                background: linear-gradient(to right, white 50%, black 50%);
+                background-size: 200% 100%;
+                background-position: right;
+                transition: background-position 0.05s ease;
                 border-radius: 48%;
                 color: rgb(85, 247, 239);
                 width: 3.25em;
                 text-align: center;
                 text-shadow: 0px 0px 2px rgb(85, 247, 239);
-                animation: pulse 3.0s ease infinite;
+                animation: pulse 2.5s infinite;
                 box-shadow: 5px 5px 15px 1px rgb(57, 65, 65);
-                &:hover {
-                    background-color: rgb(62, 84, 84);
+                &:active {
+                    background-position: left;
                 }
             }
         }
@@ -88,7 +91,7 @@ body {
         transform: scale(1.0);
     }
     50% {
-        transform: scale(1.15);
+        transform: scale(1.1);
     }
     100% {
         transform: scale(1.0);
@@ -111,6 +114,10 @@ body {
         background-color: white;
         border-bottom-right-radius: 3px;
     }
+}
+
+.modal {
+
 }
 
 .footer {
