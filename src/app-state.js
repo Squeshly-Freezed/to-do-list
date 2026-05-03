@@ -12,7 +12,7 @@ export default class AppState {
             this.addDefaultProject();
         }
         else {
-            //load from storage
+            this.loadFromStorage();
         }
     }
     static addProject(project) {
@@ -35,5 +35,13 @@ export default class AppState {
     }
     static addDefaultProject() {
         this.addProject(new Project("Home"));
+    }
+    static saveToStorage() {
+        localStorage.setItem("projects", JSON.stringify(this.projectArray));
+        localStorage.setItem("notes", JSON.stringify(this.noteArray));
+    }
+    static loadFromStorage() {
+        this.projectArray = JSON.parse(localStorage.getItem("projects"));
+        this.noteArray = JSON.parse(localStorage.getItem("notes"));
     }
 }
