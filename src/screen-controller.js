@@ -11,6 +11,10 @@ export default class ScreenController {
         document.querySelector(".logo").src = logo;
         document.querySelector(".button-add").addEventListener("click", () => ScreenController.displayItemCreator());
         this.modal = document.querySelector(".modal");
+        this.modal.addEventListener("click", (event) => ScreenController.closeItemCreator(event));
+        this.modal.classList.add("ledger");
+        this.modal.classList.add("heading");
+        this.modal.classList.add("ledger-inner");
         this.modalSideBar = ScreenController.modal.querySelector(".side-bar");
         this.modalMainBar = ScreenController.modal.querySelector(".main-bar");
         this.ledgerSideBar = document.querySelector(".main-container .ledger .ledger-inner .side-bar");
@@ -23,11 +27,15 @@ export default class ScreenController {
     }
     static displayItemCreator() {
         this.modal.showModal();
-        this.modal.classList.add("ledger");
-        this.modal.classList.add("heading");
-        this.modal.classList.add("ledger-inner");
-
     }
+
+    static closeItemCreator(event) {
+        if (event.target === this.modal) this.modal.close();
+        // this.modal.classList.add("ledger");
+        // this.modal.classList.add("heading");
+        // this.modal.classList.add("ledger-inner");
+    }
+
     static displayItem() {
         // static createItem();
         // static addToSideBar();
