@@ -11,9 +11,12 @@ export default class ScreenController {
         document.querySelector(".logo").src = logo;
         document.querySelector(".button-add").addEventListener("click", () => ScreenController.displayItemCreator());
         // document.querySelector(".button-go").addEventListener("click", () => ScreenController.submitAddition()); 
-        this.addToDoButton = document.querySelector(".button-add-todo").addEventListener("focus", () => ScreenController.displayToDoCreator());
-        this.addProjectButton = document.querySelector(".button-add-project").addEventListener("focus", () => ScreenController.displayProjectCreator());;
-        this.addNoteButton = document.querySelector(".button-add-note").addEventListener("focus", () => ScreenController.displayNoteCreator());;
+        this.addToDoButton = document.querySelector(".button-add-todo")
+        this.addToDoButton.addEventListener("focus", () => ScreenController.displayToDoCreator());
+        this.addProjectButton = document.querySelector(".button-add-project")
+        this.addProjectButton.addEventListener("focus", () => ScreenController.displayProjectCreator());;
+        this.addNoteButton = document.querySelector(".button-add-note")
+        this.addNoteButton.addEventListener("focus", () => ScreenController.displayNoteCreator());;
         this.modal = document.querySelector(".modal");
         this.modal.addEventListener("click", (event) => ScreenController.closeItemCreator(event));
         this.modal.classList.add("ledger");
@@ -30,7 +33,6 @@ export default class ScreenController {
     }
     static displayItemCreator() {
         this.modal.showModal();
-        // this.modalMainBar.textContent = "test";
     }
     static displayToDoCreator() {
         this.modalMainBar.textContent = "test1";
@@ -41,9 +43,12 @@ export default class ScreenController {
         this.modalMainBar.append(Object.assign(document.createElement("input"), { className: "date", id: "date", type: "date"}));
         this.modalMainBar.append(Object.assign(document.createElement("label"), { className: "priority-label", for: "priority", title: "Select the priority", textContent: "Priority:"}));
         this.modalMainBar.append(Object.assign(document.createElement("div"), { className: "buttonWrapper" }));
-        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { className: "low-button", type: "checkbox", id: "priority", textContent: "LOW"}));
-        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { className: "medium-button", type: "checkbox", id: "priority", textContent: "MEDIUM"}));
-        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { className: "high-button", type: "checkbox", id: "priority", textContent: "HIGH"}));
+        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { type: "radio", id: "priority-low", name: "radio"}));
+        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("label"), { className: "low-button", htmlFor: "priority-low", textContent: "LOW"}));
+        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { type: "radio", id: "priority-medium", name: "radio"}));
+        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("label"), { className: "medium-button", htmlFor: "priority-medium", textContent: "MEDIUM"}));
+        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { type: "radio", id: "priority-high", name: "radio"}));
+        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("label"), { className: "high-button", htmlFor: "priority-high", textContent: "HIGH"}));
 
     }
     static displayProjectCreator() {

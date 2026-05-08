@@ -153,7 +153,7 @@ body {
         }
     }
     .main-bar {
-        .title, .description, .date, .date-label, .priority-label{
+        .title, .description, .date, .date-label, .priority-label {
             padding: 5px;
             margin: 5px;
         }
@@ -164,8 +164,23 @@ body {
         .date-label {
             margin-top: auto;
         }
-        #priority {
+        #priority-low, #priority-medium, #priority-high {
             display: none;
+        }
+        #priority-low:checked + .low-button {
+            background-color: green;
+            color: white;
+        }
+        #priority-medium:checked + .medium-button {
+            background-color: orange;
+            color: white;
+        }
+        #priority-high:checked + .high-button {
+            background-color: red;
+            color: white;
+        }
+        .low-button, .medium-button, .high-button {
+            cursor: pointer;
             border-radius: 5px;
             padding: 5px;
             margin: 5px;
@@ -173,26 +188,14 @@ body {
         .low-button {
             border: 1px solid green;
             color: green;
-            &:focus {
-                background-color: green;
-                color: white;
-            }
         }
         .medium-button {
             border: 1px solid orange;
             color: orange;
-            &:focus {
-                background-color: orange;
-                color: white;
-            }
         }
         .high-button {
             border: 1px solid red;
             color: red;
-            &:focus {
-                background-color: red;
-                color: white;
-            }
         }
     }
 }
