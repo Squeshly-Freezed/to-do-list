@@ -181,6 +181,7 @@ body {
         }
         .low-button, .medium-button, .high-button {
             cursor: pointer;
+            font-style: normal;
             border-radius: 5px;
             padding: 5px;
             margin: 5px;

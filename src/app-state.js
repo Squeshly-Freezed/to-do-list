@@ -22,6 +22,9 @@ export default class AppState {
     static removeProject(project) {
         this.projectArray.splice(this.projectArray.indexOf(project, 0), 1);
     }
+    static selectedProject(index) {
+        return this.projectArray[index];
+    }
     static addNote(note) {
         this.noteArray.push(note);
     }
@@ -44,5 +47,10 @@ export default class AppState {
     static loadFromStorage() {
         this.projectArray = JSON.parse(localStorage.getItem("projects")) ?? "";
         this.noteArray = JSON.parse(localStorage.getItem("notes")) ?? "";
+    }
+    static hydrateProjects() {
+        for (let index = 0; index < this.projectArray.length; index++) {
+            this.projectArray[index] = Object.assign(new Project(), this.projectArray[index]);
+        }
     }
 }

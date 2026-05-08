@@ -1,3 +1,5 @@
+import ToDo from "./to-do.js";
+
 export default class Project {
     toDoArray = [];
     id = crypto.randomUUID();
@@ -6,8 +8,8 @@ export default class Project {
         this.name = name;
     }
     
-    addToDo(toDo) {
-        this.toDoArray.push(toDo);
+    addToDo(title, description, date, priority) {
+        this.toDoArray.push(new ToDo(title, description, date, priority));
     }
     removeToDo(toDo) {
         this.toDoArray.splice(this.toDoArray.indexOf(toDo, 0), 1);

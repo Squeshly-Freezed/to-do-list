@@ -10,7 +10,7 @@ export default class ScreenController {
         document.querySelector(".main-container").style.backgroundImage = `url(${background})`;
         document.querySelector(".logo").src = logo;
         document.querySelector(".button-add").addEventListener("click", () => ScreenController.displayItemCreator());
-        // document.querySelector(".button-go").addEventListener("click", () => ScreenController.submitAddition()); 
+        document.querySelector(".button-go").addEventListener("click", () => ScreenController.submitAddition()); 
         this.addToDoButton = document.querySelector(".button-add-todo")
         this.addToDoButton.addEventListener("focus", () => ScreenController.displayToDoCreator());
         this.addProjectButton = document.querySelector(".button-add-project")
@@ -36,20 +36,18 @@ export default class ScreenController {
     }
     static displayToDoCreator() {
         this.modalMainBar.textContent = "test1";
-        this.modalMainBar.append(document.createElement("form"));
-        this.modalMainBar.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Title:" }));
+        this.modalMainBar.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Title:", required: true }));
         this.modalMainBar.append(Object.assign(document.createElement("textarea"), { className: "description", placeholder: "Details:", style: "resize: none"}));
         this.modalMainBar.append(Object.assign(document.createElement("label"), { className: "date-label", for: "date", title: "Select the date", textContent: "Due Date:"}));
-        this.modalMainBar.append(Object.assign(document.createElement("input"), { className: "date", id: "date", type: "date"}));
+        this.modalMainBar.append(Object.assign(document.createElement("input"), { className: "date", id: "date", type: "date", required: true}));
         this.modalMainBar.append(Object.assign(document.createElement("label"), { className: "priority-label", for: "priority", title: "Select the priority", textContent: "Priority:"}));
         this.modalMainBar.append(Object.assign(document.createElement("div"), { className: "buttonWrapper" }));
-        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { type: "radio", id: "priority-low", name: "radio"}));
+        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { className: "radio-buttons", type: "radio", id: "priority-low", name: "radio", required: true}));
         document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("label"), { className: "low-button", htmlFor: "priority-low", textContent: "LOW"}));
-        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { type: "radio", id: "priority-medium", name: "radio"}));
+        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { className: "radio-buttons", type: "radio", id: "priority-medium", name: "radio"}));
         document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("label"), { className: "medium-button", htmlFor: "priority-medium", textContent: "MEDIUM"}));
-        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { type: "radio", id: "priority-high", name: "radio"}));
+        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { className: "radio-buttons", type: "radio", id: "priority-high", name: "radio"}));
         document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("label"), { className: "high-button", htmlFor: "priority-high", textContent: "HIGH"}));
-
     }
     static displayProjectCreator() {
         this.modalMainBar.textContent = "test2";
@@ -61,7 +59,13 @@ export default class ScreenController {
         if (event.target === this.modal) this.modal.close();
     }
     static submitAddition() {
-
+        const selectedTitle = this.modalMainBar.querySelector(".title").value;
+        const selectedDescription = this.modalMainBar.querySelector(".description").value;
+        const selectedDate = this.modalMainBar.querySelector(".date").value;
+        const selectedPriority = this.modalMainBar.querySelector(".radio-buttons:checked");
+        // if todo is selected: & for the current project, add: 
+        const selectedProject = AppState.selectedProject(0);
+        selectedProject.addToDo(selectedTitle, selectedDescription, selectedDate, selectedPriority);
     }
 
     static displayProjects() {
