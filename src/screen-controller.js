@@ -66,11 +66,18 @@ export default class ScreenController {
         // if todo is selected: & for the current project, add: 
         const selectedProject = AppState.selectedProject(0);
         selectedProject.addToDo(selectedTitle, selectedDescription, selectedDate, selectedPriority);
+        AppState.saveToStorage();
+        this.modal.close();
+        this.updateScreen();
     }
 
     static displayProjects() {
-        for (let index = 0; index < AppState.projectArray.length; index++) {
-            this.ledgerSideBar.textContent += `\n${AppState.projectArray[index].name}`;
+        this.ledgerSideBar.textContent = "";
+        for (let project of AppState.projectArray) {
+            this.ledgerSideBar.textContent += `${project.name}\n`;
+            for (let todo of project.toDoArray) {
+                this.ledgerSideBar.textContent += `\t${todo.title}\n`;
+            }
         }
     }
 }

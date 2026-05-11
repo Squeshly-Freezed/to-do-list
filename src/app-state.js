@@ -14,6 +14,7 @@ export default class AppState {
         }
         else {
             this.loadFromStorage();
+            this.hydrateProjects();
         }
     }
     static addProject(project) {
