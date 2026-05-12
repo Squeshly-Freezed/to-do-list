@@ -34,9 +34,15 @@
             </h1>
             <div class="ledger-inner">
                 <div class="side-bar">
-                    <button class="button-add-todo" autofocus>TO DO</button>
+                    <input type="radio" class="side-radio" id="todo" name="side-radio" required checked>
+                    <label for="todo" class="side-radio-label">To Do</label>
+                    <input type="radio" class="side-radio" id="project" name="side-radio">
+                    <label for="project" class="side-radio-label">Project</label>
+                    <input type="radio" class="side-radio" id="note" name="side-radio">
+                    <label for="note" class="side-radio-label">Note</label>
+                    <!-- <button class="button-add-todo" autofocus>TO DO</button>
                     <button class="button-add-project">PROJECT</button>
-                    <button class="button-add-note">NOTE</button>
+                    <button class="button-add-note">NOTE</button> -->
                 </div>
                 <div class="main-bar"></div>
             </div>

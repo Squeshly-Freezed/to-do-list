@@ -141,6 +141,20 @@ body {
         backdrop-filter: blur(5px);
     }
     .side-bar {
+        
+        .side-radio {
+            opacity: 0;
+            position: absolute;
+            &:checked + .side-radio-label {
+                color: rgb(132, 7, 7);
+                transform: scale(1.2);
+                font-weight: 700;
+            }
+        }
+        .side-radio-label {
+            cursor: pointer;
+            padding: 8px;
+        }
         button {
             all: unset;
             /* border: 2px solid yellow; */

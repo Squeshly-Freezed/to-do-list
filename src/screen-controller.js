@@ -10,14 +10,12 @@ export default class ScreenController {
         document.querySelector(".main-container").style.backgroundImage = `url(${background})`;
         document.querySelector(".logo").src = logo;
         document.querySelector(".button-add").addEventListener("click", () => ScreenController.displayItemCreator());
-        // document.querySelector(".button-go").addEventListener("submit", (event) => ScreenController.submitAddition(event)); 
-        // document.querySelector(".button-go").addEventListener("submit", (event) => ScreenController.submitAddition(event)); 
-        this.addToDoButton = document.querySelector(".button-add-todo")
-        this.addToDoButton.addEventListener("focus", () => ScreenController.displayToDoCreator());
-        this.addProjectButton = document.querySelector(".button-add-project")
-        this.addProjectButton.addEventListener("focus", () => ScreenController.displayProjectCreator());;
-        this.addNoteButton = document.querySelector(".button-add-note")
-        this.addNoteButton.addEventListener("focus", () => ScreenController.displayNoteCreator());;
+        this.addToDoButton = document.querySelector("#todo");
+        this.addToDoButton.addEventListener("change", () => ScreenController.displayToDoCreator());
+        this.addProjectButton = document.querySelector("#project");
+        this.addProjectButton.addEventListener("change", () => ScreenController.displayProjectCreator());
+        this.addNoteButton = document.querySelector("#note");
+        this.addNoteButton.addEventListener("change", () => ScreenController.displayNoteCreator());
         this.modal = document.querySelector(".modal");
         this.modal.addEventListener("click", (event) => ScreenController.closeItemCreator(event));
         this.modal.classList.add("ledger");
@@ -34,6 +32,7 @@ export default class ScreenController {
     }
     static displayItemCreator() {
         this.modal.showModal();
+        ScreenController.displayToDoCreator()
     }
     static displayToDoCreator() {
         this.modalMainBar.textContent = "";
