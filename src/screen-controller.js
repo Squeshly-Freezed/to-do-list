@@ -37,7 +37,7 @@ export default class ScreenController {
     static displayToDoCreator() {
         this.modalMainBar.textContent = "";
         const form = Object.assign(document.createElement("form"), { className: "form", id: "form"});
-        form.addEventListener("submit", (event) => ScreenController.submitAddition(event)); 
+        form.addEventListener("submit", (event) => ScreenController.submitToDo(event)); 
         this.modalMainBar.append(form);
         form.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Title:", required: true }));
         form.append(Object.assign(document.createElement("textarea"), { className: "description", placeholder: "Details:", style: "resize: none"}));
@@ -53,15 +53,24 @@ export default class ScreenController {
         document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("label"), { className: "high-button", htmlFor: "priority-high", textContent: "HIGH"}));
     }
     static displayProjectCreator() {
-        this.modalMainBar.textContent = "test2";
+        this.modalMainBar.textContent = "";
+        const form = Object.assign(document.createElement("form"), { className: "form", id: "form"});
+        form.addEventListener("submit", (event) => ScreenController.submitProject(event));
+        this.modalMainBar.append(form);
+        form.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Name:", required: true }));
     }
     static displayNoteCreator() {
-        this.modalMainBar.textContent = "test3";
+        this.modalMainBar.textContent = "";
+        const form = Object.assign(document.createElement("form"), { className: "form", id: "form"});
+        form.addEventListener("submit", (event) => ScreenController.submitNote(event));
+        this.modalMainBar.append(form);
+        form.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Title:", required: true }));
+        form.append(Object.assign(document.createElement("textarea"), { className: "description", placeholder: "Details:", style: "resize: none", required: true}));
     }
     static closeItemCreator(event) {
         if (event.target === this.modal) this.modal.close();
     }
-    static submitAddition(event) {
+    static submitToDo(event) {
         event.preventDefault();
         const selectedTitle = this.modalMainBar.querySelector(".title").value;
         const selectedDescription = this.modalMainBar.querySelector(".description").value;
@@ -72,6 +81,14 @@ export default class ScreenController {
         AppState.saveToStorage();
         this.modal.close();
         this.updateScreen();
+    }
+
+    static submitProject(event) {
+        event.preventDefault();
+    }
+
+    static submitNote(event) {
+
     }
 
     static displayProjects() {
