@@ -33,14 +33,21 @@ export default class ScreenController {
         this.displayItemsOnSideBar();
     }
 
-    static displayItemsOnSideBar() {
+    static displayItemsOnSideBar() { //finish this
         this.ledgerSideBar.textContent = "";
+        const sideBarList = document.createElement("ul");
+        this.ledgerSideBar.append(sideBarList);
         for (let project of AppState.projectArray) {
-            this.ledgerSideBar.textContent += `${project.name}\n`;
+            // this.ledgerSideBar.textContent += `${project.name}\n`;
+            sideBarList.append(Object.assign(document.createElement("li"), { className: "projectLi", textContent: `${project.name}\n` }));
             for (let todo of project.toDoArray) {
-                this.ledgerSideBar.textContent += `\t${todo.title}\n`;
+                this.ledgerMainBar.append(Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: `\t${todo.title}\n` }));  // create style for toDoDivs
             }
         }
+    }
+
+    static displayItemsOnMainBar() {
+
     }
 
     static displayItemCreator() {
@@ -96,14 +103,14 @@ export default class ScreenController {
         const selectedPriority = this.modalMainBar.querySelector(".radio-buttons:checked");
         const selectedProject = AppState.selectedProject(0); // fix: make loop to select correct index
         selectedProject.addToDo(selectedTitle, selectedDescription, selectedDate, selectedPriority);
-        saveAndClose();
+        this.saveAndClose();
     }
 
     static submitProject(event) {
         event.preventDefault();
         const selectedTitle = this.modalMainBar.querySelector(".title").value;
         AppState.addProject(new Project(selectedTitle));
-        saveAndClose();
+        this.saveAndClose();
     }
 
     static submitNote(event) {
@@ -111,7 +118,7 @@ export default class ScreenController {
         const selectedTitle = this.modalMainBar.querySelector(".title").value;
         const selectedDescription = this.modalMainBar.querySelector(".description").value;
         AppState.addNote();
-        saveAndClose();
+        this.saveAndClose();
     }
 
     static saveAndClose() {
