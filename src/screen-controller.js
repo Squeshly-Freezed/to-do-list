@@ -2,6 +2,7 @@ import AppState from "./app-state.js";
 import "./styles.css";
 import background from "./img/desk-background.webp";
 import logo from "./img/squeshly-freezed-v2-transparent.png";
+import Project from "./project.js";
 
 
 
@@ -27,13 +28,30 @@ export default class ScreenController {
         this.ledgerMainBar = document.querySelector(".main-container .ledger .ledger-inner .main-bar");
         this.updateScreen();
     }
+
     static updateScreen() {
-        this.displayProjects();
+        this.displayItemsOnSideBar();
     }
+
+    static displayItemsOnSideBar() {
+        this.ledgerSideBar.textContent = "";
+        for (let project of AppState.projectArray) {
+            this.ledgerSideBar.textContent += `${project.name}\n`;
+            for (let todo of project.toDoArray) {
+                this.ledgerSideBar.textContent += `\t${todo.title}\n`;
+            }
+        }
+    }
+
     static displayItemCreator() {
         this.modal.showModal();
         ScreenController.displayToDoCreator()
     }
+
+    static closeItemCreator(event) {
+        if (event.target === this.modal) this.modal.close();
+    }
+
     static displayToDoCreator() {
         this.modalMainBar.textContent = "";
         const form = Object.assign(document.createElement("form"), { className: "form", id: "form"});
@@ -52,6 +70,7 @@ export default class ScreenController {
         document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { className: "radio-buttons", type: "radio", id: "priority-high", name: "radio"}));
         document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("label"), { className: "high-button", htmlFor: "priority-high", textContent: "HIGH"}));
     }
+
     static displayProjectCreator() {
         this.modalMainBar.textContent = "";
         const form = Object.assign(document.createElement("form"), { className: "form", id: "form"});
@@ -59,6 +78,7 @@ export default class ScreenController {
         this.modalMainBar.append(form);
         form.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Name:", required: true }));
     }
+
     static displayNoteCreator() {
         this.modalMainBar.textContent = "";
         const form = Object.assign(document.createElement("form"), { className: "form", id: "form"});
@@ -67,9 +87,7 @@ export default class ScreenController {
         form.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Title:", required: true }));
         form.append(Object.assign(document.createElement("textarea"), { className: "description", placeholder: "Details:", style: "resize: none", required: true}));
     }
-    static closeItemCreator(event) {
-        if (event.target === this.modal) this.modal.close();
-    }
+
     static submitToDo(event) {
         event.preventDefault();
         const selectedTitle = this.modalMainBar.querySelector(".title").value;
@@ -78,26 +96,27 @@ export default class ScreenController {
         const selectedPriority = this.modalMainBar.querySelector(".radio-buttons:checked");
         const selectedProject = AppState.selectedProject(0); // fix: make loop to select correct index
         selectedProject.addToDo(selectedTitle, selectedDescription, selectedDate, selectedPriority);
-        AppState.saveToStorage();
-        this.modal.close();
-        this.updateScreen();
+        saveAndClose();
     }
 
     static submitProject(event) {
         event.preventDefault();
+        const selectedTitle = this.modalMainBar.querySelector(".title").value;
+        AppState.addProject(new Project(selectedTitle));
+        saveAndClose();
     }
 
     static submitNote(event) {
-
+        event.preventDefault();
+        const selectedTitle = this.modalMainBar.querySelector(".title").value;
+        const selectedDescription = this.modalMainBar.querySelector(".description").value;
+        AppState.addNote();
+        saveAndClose();
     }
 
-    static displayProjects() {
-        this.ledgerSideBar.textContent = "";
-        for (let project of AppState.projectArray) {
-            this.ledgerSideBar.textContent += `${project.name}\n`;
-            for (let todo of project.toDoArray) {
-                this.ledgerSideBar.textContent += `\t${todo.title}\n`;
-            }
-        }
+    static saveAndClose() {
+        AppState.saveToStorage();
+        this.modal.close();
+        this.updateScreen();
     }
 }

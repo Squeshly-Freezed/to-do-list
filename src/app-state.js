@@ -26,8 +26,8 @@ export default class AppState {
     static selectedProject(index) {
         return this.projectArray[index];
     }
-    static addNote(note) {
-        this.noteArray.push(note);
+    static addNote(title, description) {
+        this.noteArray.push(new Note(title, description));
     }
     static removeNote(note) {
         this.noteArray.splice(this.noteArray.indexOf(note, 0), 1);
