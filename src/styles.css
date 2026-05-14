@@ -126,6 +126,10 @@ body {
     }
 }
 
+.selected {
+    color: red;
+}
+
 .modal {
     white-space: pre;
     display: flex;

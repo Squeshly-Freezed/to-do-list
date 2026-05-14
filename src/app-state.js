@@ -23,7 +23,7 @@ export default class AppState {
     static removeProject(project) {
         this.projectArray.splice(this.projectArray.indexOf(project, 0), 1);
     }
-    static selectedProject(index) {
+    static returnSelectedProject(index) {
         return this.projectArray[index];
     }
     static addNote(title, description) {
