@@ -43,8 +43,10 @@ export default class ScreenController {
 
     static displayItemsOnMainBar() {
         this.ledgerMainBar.textContent = "";
-        for (let todo of AppState.getSelectedProject().toDoArray) {
-            this.ledgerMainBar.append(Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: `\t${todo.title}\n` }));  // create style for toDoDivs
+        if (AppState.getSelectedProject().toDoArray.length > 0) {
+            for (let todo of AppState.getSelectedProject().toDoArray) {
+                this.ledgerMainBar.append(Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: `\t${todo.title}\n` }));  // create style for toDoDivs
+            }
         }
     }
 
@@ -59,21 +61,28 @@ export default class ScreenController {
         this.displayItemsOnMainBar();
         this.showEmptyProjectNotice();
     }
-    //current
+    
     static showEmptyProjectNotice() {
         if (AppState.getSelectedProject().toDoArray.length === 0) {
             const noticeHeader = Object.assign(document.createElement("div"), { className: "noticeHeader", textContent: "Empty Project"});
             const notice = Object.assign(document.createElement("div"), { className: "notice", textContent: "Add a To-Do, or delete unused Project."});
             const noticeButton = Object.assign(document.createElement("button"), { className: "noticeButton", textContent: "Delete"});
+            noticeButton.addEventListener("click", () => ScreenController.deleteProject());
             this.ledgerMainBar.append(noticeHeader);
             this.ledgerMainBar.append(notice);
             this.ledgerMainBar.append(noticeButton);
         }
     }
 
+    static deleteProject() {
+        AppState.removeProject(AppState.getSelectedProject());
+        AppState.setSelectedProject(0);
+        this.saveAndClose();
+    }
+
     static displayItemCreator() {
         this.modal.showModal();
-        ScreenController.displayToDoCreator();
+        this.displayToDoCreator();
     }
 
     static closeItemCreator(event) {
@@ -151,6 +160,6 @@ export default class ScreenController {
         this.addToDoButton.checked = true;
         this.displayItemsOnSideBar();
         this.displayItemsOnMainBar();
-        this.sideBarList.children[AppState.selectedProjectIndex].classList.add("selected");
+        this.sideBarList.firstElementChild.classList.add("selected");
     }
 }
