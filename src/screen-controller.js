@@ -57,6 +57,18 @@ export default class ScreenController {
             AppState.setSelectedProject(chosenIndex);
         }
         this.displayItemsOnMainBar();
+        this.showEmptyProjectNotice();
+    }
+    //current
+    static showEmptyProjectNotice() {
+        if (AppState.getSelectedProject().toDoArray.length === 0) {
+            const noticeHeader = Object.assign(document.createElement("div"), { className: "noticeHeader", textContent: "Empty Project"});
+            const notice = Object.assign(document.createElement("div"), { className: "notice", textContent: "Add a To-Do, or delete unused Project."});
+            const noticeButton = Object.assign(document.createElement("button", { className: "noticeButton", textContent: "Delete"}));
+            this.ledgerMainBar.append(noticeHeader);
+            this.ledgerMainBar.append(notice);
+            this.ledgerMainBar.append(noticeButton);
+        }
     }
 
     static displayItemCreator() {
