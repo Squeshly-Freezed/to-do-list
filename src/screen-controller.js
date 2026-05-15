@@ -7,8 +7,6 @@ import Project from "./project.js";
 
 
 export default class ScreenController {
-    // static selectedProject = this.sideBarList.children             //store the clicked project here
-
     static init() {
         document.querySelector(".main-container").style.backgroundImage = `url(${background})`;
         document.querySelector(".logo").src = logo;
@@ -137,6 +135,9 @@ export default class ScreenController {
     static saveAndClose() {
         AppState.saveToStorage();
         this.modal.close();
+        this.addToDoButton.checked = true;
         this.displayItemsOnSideBar();
+        this.displayItemsOnMainBar();
+        // this.sideBarList.children[AppState.getSelectedProject()].classList.add("selected");      fix
     }
 }
