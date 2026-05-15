@@ -64,7 +64,7 @@ export default class ScreenController {
         if (AppState.getSelectedProject().toDoArray.length === 0) {
             const noticeHeader = Object.assign(document.createElement("div"), { className: "noticeHeader", textContent: "Empty Project"});
             const notice = Object.assign(document.createElement("div"), { className: "notice", textContent: "Add a To-Do, or delete unused Project."});
-            const noticeButton = Object.assign(document.createElement("button", { className: "noticeButton", textContent: "Delete"}));
+            const noticeButton = Object.assign(document.createElement("button"), { className: "noticeButton", textContent: "Delete"});
             this.ledgerMainBar.append(noticeHeader);
             this.ledgerMainBar.append(notice);
             this.ledgerMainBar.append(noticeButton);
