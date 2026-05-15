@@ -43,6 +43,7 @@ body {
     margin-bottom: clamp(7vh, 12vh, 20vh);
     margin-top: clamp(7vh, 12vh, 20vh);
     height: clamp(20vh, 60vh, 80vh);
+    overflow-y: auto;
     background-color: rgb(65, 237, 180);
     border-radius: 3px;
     box-shadow: 0px 0px 75px 25px rgb(65, 78, 76),
@@ -114,6 +115,7 @@ body {
         border-right: 1px solid rgb(190, 190, 190);
         font-size: clamp(0.2rem, 1vw + 0.5rem, 2rem);
         white-space: pre;
+        overflow-x: auto;
     }
     .main-bar, .form {
         flex: 3;
