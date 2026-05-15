@@ -121,6 +121,7 @@ export default class ScreenController {
         event.preventDefault();
         const selectedTitle = this.modalMainBar.querySelector(".title").value;
         AppState.addProject(new Project(selectedTitle));
+        AppState.setSelectedProject(AppState.projectArray.length-1);
         this.saveAndClose();
     }
 
@@ -138,6 +139,6 @@ export default class ScreenController {
         this.addToDoButton.checked = true;
         this.displayItemsOnSideBar();
         this.displayItemsOnMainBar();
-        // this.sideBarList.children[AppState.getSelectedProject()].classList.add("selected");      fix
+        this.sideBarList.children[AppState.selectedProjectIndex].classList.add("selected");
     }
 }
