@@ -30,13 +30,9 @@ export default class ScreenController {
         this.ledgerMainBar = document.querySelector(".main-container .ledger .ledger-inner .main-bar");
         this.sideBarList = document.createElement("ul");
         this.sideBarList.addEventListener("click", (event) => ScreenController.showSelectedProject(event));
-        this.updateScreen();
-        this.sideBarList.firstElementChild.classList.add("selected");
-    }
-
-    static updateScreen() {
         this.displayItemsOnSideBar();
         this.displayItemsOnMainBar();
+        this.sideBarList.firstElementChild.classList.add("selected");
     }
 
     static displayItemsOnSideBar() {
@@ -62,6 +58,7 @@ export default class ScreenController {
             const chosenIndex = Array.from(event.currentTarget.children).indexOf(event.target);
             AppState.setSelectedProject(chosenIndex);
         }
+        this.displayItemsOnMainBar();
     }
 
     static displayItemCreator() {
@@ -137,6 +134,6 @@ export default class ScreenController {
     static saveAndClose() {
         AppState.saveToStorage();
         this.modal.close();
-        this.updateScreen();
+        this.displayItemsOnSideBar();
     }
 }
