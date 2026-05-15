@@ -76,8 +76,8 @@ export default class ScreenController {
         const form = Object.assign(document.createElement("form"), { className: "form", id: "form"});
         form.addEventListener("submit", (event) => ScreenController.submitToDo(event)); 
         this.modalMainBar.append(form);
-        form.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Title:", required: true }));
-        form.append(Object.assign(document.createElement("textarea"), { className: "description", placeholder: "Details:", style: "resize: none"}));
+        form.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Title:", required: true, maxLength: "18" }));
+        form.append(Object.assign(document.createElement("textarea"), { className: "description", placeholder: "Details:", style: "resize: none", maxLength: "2500"}));
         form.append(Object.assign(document.createElement("label"), { className: "date-label", for: "date", title: "Select the date", textContent: "Due Date:"}));
         form.append(Object.assign(document.createElement("input"), { className: "date", id: "date", type: "date", required: true}));
         form.append(Object.assign(document.createElement("label"), { className: "priority-label", for: "priority", title: "Select the priority", textContent: "Priority:"}));
@@ -95,7 +95,7 @@ export default class ScreenController {
         const form = Object.assign(document.createElement("form"), { className: "form", id: "form"});
         form.addEventListener("submit", (event) => ScreenController.submitProject(event));
         this.modalMainBar.append(form);
-        form.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Name:", required: true }));
+        form.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Name:", required: true, maxLength: "18"}));
     }
 
     static displayNoteCreator() {
@@ -103,8 +103,8 @@ export default class ScreenController {
         const form = Object.assign(document.createElement("form"), { className: "form", id: "form"});
         form.addEventListener("submit", (event) => ScreenController.submitNote(event));
         this.modalMainBar.append(form);
-        form.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Title:", required: true }));
-        form.append(Object.assign(document.createElement("textarea"), { className: "description", placeholder: "Details:", style: "resize: none", required: true}));
+        form.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Title:", required: true, maxLength: "18" }));
+        form.append(Object.assign(document.createElement("textarea"), { className: "description", placeholder: "Details:", style: "resize: none", required: true, maxLength: "2500"}));
     }
 
     static submitToDo(event) {
