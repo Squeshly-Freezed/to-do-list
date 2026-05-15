@@ -36,7 +36,7 @@ export default class ScreenController {
     }
 
     static displayItemsOnSideBar() {
-        this.ledgerSideBar.textContent = "";
+        this.sideBarList.textContent = "";
         this.ledgerSideBar.append(this.sideBarList);
         for (let project of AppState.projectArray) {
             this.sideBarList.append(Object.assign(document.createElement("li"), { className: "projectLi", textContent: `${project.name}\n` }));
@@ -63,11 +63,14 @@ export default class ScreenController {
 
     static displayItemCreator() {
         this.modal.showModal();
-        ScreenController.displayToDoCreator()
+        ScreenController.displayToDoCreator();
     }
 
     static closeItemCreator(event) {
-        if (event.target === this.modal) this.modal.close();
+        if (event.target === this.modal) {
+            this.modal.close();
+            this.addToDoButton.checked = true;
+        }
     }
 
     static displayToDoCreator() {
