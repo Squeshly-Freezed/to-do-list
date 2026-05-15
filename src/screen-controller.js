@@ -7,6 +7,8 @@ import Project from "./project.js";
 
 
 export default class ScreenController {
+    // static selectedProject = this.sideBarList.children             //store the clicked project here
+
     static init() {
         document.querySelector(".main-container").style.backgroundImage = `url(${background})`;
         document.querySelector(".logo").src = logo;
@@ -34,6 +36,7 @@ export default class ScreenController {
 
     static updateScreen() {
         this.displayItemsOnSideBar();
+        this.displayItemsOnMainBar();
     }
 
     static displayItemsOnSideBar() {
@@ -46,10 +49,8 @@ export default class ScreenController {
 
     static displayItemsOnMainBar() {
         this.ledgerMainBar.textContent = "";
-        for (let project of AppState.projectArray) {
-            for (let todo of project.toDoArray) {
-                this.ledgerMainBar.append(Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: `\t${todo.title}\n` }));  // create style for toDoDivs
-            }
+        for (let todo of AppState.getSelectedProject().toDoArray) {
+            this.ledgerMainBar.append(Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: `\t${todo.title}\n` }));  // create style for toDoDivs
         }
     }
 
@@ -58,6 +59,8 @@ export default class ScreenController {
             const previouslySelected = event.currentTarget.querySelector(".selected");
             if (previouslySelected) previouslySelected.classList.remove("selected");
             event.target.classList.add("selected");
+            const chosenIndex = Array.from(event.currentTarget.children).indexOf(event.target);
+            AppState.setSelectedProject(chosenIndex);
         }
     }
 
@@ -112,8 +115,7 @@ export default class ScreenController {
         const selectedDescription = this.modalMainBar.querySelector(".description").value;
         const selectedDate = this.modalMainBar.querySelector(".date").value;
         const selectedPriority = this.modalMainBar.querySelector(".radio-buttons:checked");
-        const selectedProject = AppState.returnSelectedProject(0); // fix: make loop to select correct index
-        selectedProject.addToDo(selectedTitle, selectedDescription, selectedDate, selectedPriority);
+        AppState.getSelectedProject().addToDo(selectedTitle, selectedDescription, selectedDate, selectedPriority);
         this.saveAndClose();
     }
 

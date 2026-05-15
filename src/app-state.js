@@ -5,6 +5,7 @@ import Note from "./note.js";
 export default class AppState {
     static projectArray = [];
     static noteArray = [];
+    static selectedProjectIndex = 0;
 
     static init() {
         if (!this.isPastVisitor()) {
@@ -23,8 +24,11 @@ export default class AppState {
     static removeProject(project) {
         this.projectArray.splice(this.projectArray.indexOf(project, 0), 1);
     }
-    static returnSelectedProject(index) {
-        return this.projectArray[index];
+    static setSelectedProject(index) {
+        this.selectedProjectIndex = index;
+    }
+    static getSelectedProject() {
+        return this.projectArray[this.selectedProjectIndex];
     }
     static addNote(title, description) {
         this.noteArray.push(new Note(title, description));
