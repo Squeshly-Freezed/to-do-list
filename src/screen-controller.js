@@ -46,13 +46,21 @@ export default class ScreenController {
         if (AppState.getSelectedProject().toDoArray.length > 0) {
             for (let todo of AppState.getSelectedProject().toDoArray) {
                 const toDoDivs = Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: `\t${todo.title}\n` });
-                this.ledgerMainBar.append(toDoDivs);  // create style for toDoDivs
+                this.ledgerMainBar.append(toDoDivs);                                                    // create style for toDoDivs
                 const doneBox = Object.assign(document.createElement("input"), { type: "checkbox", className: "doneBox" });
                 const dateBox = Object.assign(document.createElement("div"), { className: "dateBox", textContent: `${todo.dueDate}` });
-                const binWrapper = Object.assign(document.createElement("div"), { className: "svgWrapper" });
-                const binSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                const binWrapper = Object.assign(document.createElement("div"), { className: "binWrapper" });
+                binWrapper.innerHTML = 
+                    `<svg fill="red" width="1em" height="1em" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M42,3H28a2,2,0,0,0-2-2H22a2,2,0,0,0-2,2H6A2,2,0,0,0,6,7H42a2,2,0,0,0,0-4Z"/>
+                    <path d="M39,9a2,2,0,0,0-2,2V43H11V11a2,2,0,0,0-4,0V45a2,2,0,0,0,2,2H39a2,2,0,0,0,2-2V11A2,2,0,0,0,39,9Z"/>
+                    <path d="M21,37V19a2,2,0,0,0-4,0V37a2,2,0,0,0,4,0Z"/>
+                    <path d="M31,37V19a2,2,0,0,0-4,0V37a2,2,0,0,0,4,0Z"/>
+                    </svg>`
+                const binSVG = binWrapper.firstElementChild;    //finish
                 toDoDivs.prepend(doneBox);
                 toDoDivs.append(dateBox);
+                toDoDivs.append(binSVG);
             }
         }
     }
