@@ -49,6 +49,7 @@ export default class ScreenController {
                 this.ledgerMainBar.append(toDoDivs);                                                    // create style for toDoDivs
                 const doneBox = Object.assign(document.createElement("input"), { type: "checkbox", className: "doneBox" });
                 const dateBox = Object.assign(document.createElement("div"), { className: "dateBox", textContent: `${todo.dueDate}` });
+                const detailsBox = Object.assign(document.createElement("button"), { className: "detailsBox", textContent: "Details" });
                 const binWrapper = Object.assign(document.createElement("div"), { className: "binWrapper" });
                 binWrapper.innerHTML = 
                     `<svg fill="red" width="1em" height="1em" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -59,6 +60,7 @@ export default class ScreenController {
                     </svg>`
                 const binSVG = binWrapper.firstElementChild;    //finish
                 toDoDivs.prepend(doneBox);
+                toDoDivs.append(detailsBox);
                 toDoDivs.append(dateBox);
                 toDoDivs.append(binSVG);
             }
@@ -112,7 +114,7 @@ export default class ScreenController {
         const form = Object.assign(document.createElement("form"), { className: "form", id: "form"});
         form.addEventListener("submit", (event) => ScreenController.submitToDo(event)); 
         this.modalMainBar.append(form);
-        form.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Title:", required: true, maxLength: "18" }));
+        form.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Title:", required: true, maxLength: "12" }));
         form.append(Object.assign(document.createElement("textarea"), { className: "description", placeholder: "Details:", style: "resize: none", maxLength: "2500"}));
         form.append(Object.assign(document.createElement("label"), { className: "date-label", for: "date", title: "Select the date", textContent: "Due Date:"}));
         form.append(Object.assign(document.createElement("input"), { className: "date", id: "date", type: "date", required: true}));
