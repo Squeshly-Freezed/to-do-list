@@ -45,7 +45,14 @@ export default class ScreenController {
         this.ledgerMainBar.textContent = "";
         if (AppState.getSelectedProject().toDoArray.length > 0) {
             for (let todo of AppState.getSelectedProject().toDoArray) {
-                this.ledgerMainBar.append(Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: `\t${todo.title}\n` }));  // create style for toDoDivs
+                const toDoDivs = Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: `\t${todo.title}\n` });
+                this.ledgerMainBar.append(toDoDivs);  // create style for toDoDivs
+                const doneBox = Object.assign(document.createElement("input"), { type: "checkbox", className: "doneBox" });
+                const dateBox = Object.assign(document.createElement("div"), { className: "dateBox", textContent: `${todo.dueDate}` });
+                const binWrapper = Object.assign(document.createElement("div"), { className: "svgWrapper" });
+                const binSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                toDoDivs.prepend(doneBox);
+                toDoDivs.append(dateBox);
             }
         }
     }
