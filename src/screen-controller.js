@@ -3,8 +3,9 @@ import "./styles.css";
 import background from "./img/desk-background.webp";
 import logo from "./img/squeshly-freezed-v2-transparent.png";
 import Project from "./project.js";
+import { format, parseISO } from "date-fns";
 
-
+const formatDate = (dueDate) => format(parseISO(dueDate), "d MMM");
 
 export default class ScreenController {
     static init() {
@@ -54,7 +55,7 @@ export default class ScreenController {
                 const toDoDivs = Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: `\t${todo.title}\n`, id: todo.id });
                 this.ledgerMainBar.append(toDoDivs);
                 const doneBox = Object.assign(document.createElement("input"), { type: "checkbox", className: "doneBox", checked: todo.completionStatus });
-                const dateBox = Object.assign(document.createElement("div"), { className: "dateBox", textContent: `${todo.dueDate}` });
+                const dateBox = Object.assign(document.createElement("div"), { className: "dateBox", textContent: formatDate(todo.dueDate) });
                 const detailsBox = Object.assign(document.createElement("button"), { className: "detailsBox", textContent: "Details" });
                 const binWrapper = Object.assign(document.createElement("div"), { className: "binWrapper" });
                 binWrapper.innerHTML = 
