@@ -26,7 +26,8 @@ export default class ScreenController {
         this.modalMainBar = ScreenController.modal.querySelector(".ledger-inner .main-bar");
         this.ledgerSideBar = document.querySelector(".main-container .ledger .ledger-inner .side-bar");
         this.ledgerMainBar = document.querySelector(".main-container .ledger .ledger-inner .main-bar");
-        this.ledgerMainBar.addEventListener("change", (event) => ScreenController.toDoCompleted(event));
+        this.ledgerMainBar.addEventListener("change", (event) => ScreenController.completeToDo(event));
+        this.ledgerMainBar.addEventListener("click", (event) => ScreenController.deleteToDo(event));
         this.sideBarList = document.createElement("ul");
         this.sideBarList.addEventListener("click", (event) => ScreenController.showSelectedProject(event));
         this.displayItemsOnSideBar();
@@ -60,6 +61,7 @@ export default class ScreenController {
                     <path d="M31,37V19a2,2,0,0,0-4,0V37a2,2,0,0,0,4,0Z"/>
                     </svg>`
                 const binSVG = binWrapper.firstElementChild;    //finish
+                binSVG.classList.add("binSVG");
                 toDoDivs.prepend(doneBox);
                 toDoDivs.append(detailsBox);
                 toDoDivs.append(dateBox);
@@ -68,12 +70,24 @@ export default class ScreenController {
         }
     }
 
-    static toDoCompleted(event) {
+    static completeToDo(event) {
         if (event.target.classList.contains("doneBox")) {
             for (let todo of AppState.getSelectedProject().toDoArray) {
                 if (event.target.closest(".toDoDivs").id === todo.id) {
                     todo.changeCompletionStatus();
                     AppState.saveToStorage();
+                }
+            }
+        }
+    }
+
+    static deleteToDo(event) {
+        if (event.target.classList.contains("binSVG")) {
+            for (let todo of AppState.getSelectedProject().toDoArray) {
+                if (event.target.closest(".toDoDivs").id === todo.id) {
+                    AppState.getSelectedProject().removeToDo(todo);
+                    AppState.saveToStorage();
+                    this.displayItemsOnMainBar();
                 }
             }
         }
