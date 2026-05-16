@@ -26,6 +26,7 @@ export default class ScreenController {
         this.modalMainBar = ScreenController.modal.querySelector(".ledger-inner .main-bar");
         this.ledgerSideBar = document.querySelector(".main-container .ledger .ledger-inner .side-bar");
         this.ledgerMainBar = document.querySelector(".main-container .ledger .ledger-inner .main-bar");
+        this.ledgerMainBar.addEventListener("change", (event) => ScreenController.toDoCompleted(event));
         this.sideBarList = document.createElement("ul");
         this.sideBarList.addEventListener("click", (event) => ScreenController.showSelectedProject(event));
         this.displayItemsOnSideBar();
@@ -45,9 +46,9 @@ export default class ScreenController {
         this.ledgerMainBar.textContent = "";
         if (AppState.getSelectedProject().toDoArray.length > 0) {
             for (let todo of AppState.getSelectedProject().toDoArray) {
-                const toDoDivs = Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: `\t${todo.title}\n` });
-                this.ledgerMainBar.append(toDoDivs);                                                    // create style for toDoDivs
-                const doneBox = Object.assign(document.createElement("input"), { type: "checkbox", className: "doneBox" });
+                const toDoDivs = Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: `\t${todo.title}\n`, id: todo.id });
+                this.ledgerMainBar.append(toDoDivs);
+                const doneBox = Object.assign(document.createElement("input"), { type: "checkbox", className: "doneBox", checked: todo.completionStatus });
                 const dateBox = Object.assign(document.createElement("div"), { className: "dateBox", textContent: `${todo.dueDate}` });
                 const detailsBox = Object.assign(document.createElement("button"), { className: "detailsBox", textContent: "Details" });
                 const binWrapper = Object.assign(document.createElement("div"), { className: "binWrapper" });
@@ -63,6 +64,17 @@ export default class ScreenController {
                 toDoDivs.append(detailsBox);
                 toDoDivs.append(dateBox);
                 toDoDivs.append(binSVG);
+            }
+        }
+    }
+
+    static toDoCompleted(event) {
+        if (event.target.classList.contains("doneBox")) {
+            for (let todo of AppState.getSelectedProject().toDoArray) {
+                if (event.target.closest(".toDoDivs").id === todo.id) {
+                    todo.changeCompletionStatus();
+                    AppState.saveToStorage();
+                }
             }
         }
     }

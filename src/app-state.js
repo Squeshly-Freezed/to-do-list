@@ -54,8 +54,12 @@ export default class AppState {
         this.noteArray = JSON.parse(localStorage.getItem("notes")) ?? "";
     }
     static hydrateProjects() {
-        for (let index = 0; index < this.projectArray.length; index++) {
-            this.projectArray[index] = Object.assign(new Project(), this.projectArray[index]);
+        for (let i = 0; i < this.projectArray.length; i++) {
+            this.projectArray[i] = Object.assign(new Project(), this.projectArray[i]);
+            this.noteArray[i] = Object.assign(new Note(), this.noteArray[i]);
+            for (let j = 0; j < this.projectArray[i].toDoArray.length; j++) {
+                this.projectArray[i].toDoArray[j] = Object.assign(new ToDo(), this.projectArray[i].toDoArray[j]);
+            }
         }
     }
 }
