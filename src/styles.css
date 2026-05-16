@@ -25,7 +25,7 @@ body {
     color: black;
 }
 
-.ledger {
+.ledger, .detailsModal {
     display: flex;
     flex-direction: column;
     margin-left: clamp(10vw, 15vw, 30vw);
@@ -216,7 +216,7 @@ body {
     color: red;
 }
 
-.modal {
+.modal, .detailsModal {
     white-space: pre;
     display: flex;
     padding: 0px;
@@ -305,6 +305,18 @@ body {
     }
 }
 
+.detailsModal {
+    width: clamp(10vw, 50vw, 60vw);
+    background-color: whitesmoke;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 2em;
+    overflow-wrap: break-word;
+    text-shadow: 1px;
+    font-size: clamp(0.8rem, 3vw + 0.5rem, 2rem);
+    letter-spacing: 1px;
+}
+
 dialog:not([open]) {
     display: none;
 }
@@ -327,7 +339,7 @@ dialog:not([open]) {
         margin: 0dvh;
         height: 100dvh;
     }
-    .modal {
+    .modal, .detailsModal {
         height: 70%;
         width: 100%;
     }

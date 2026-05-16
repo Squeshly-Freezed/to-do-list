@@ -17,6 +17,9 @@ export default class ScreenController {
         this.addProjectButton.addEventListener("change", () => ScreenController.displayProjectCreator());
         this.addNoteButton = document.querySelector("#note");
         this.addNoteButton.addEventListener("change", () => ScreenController.displayNoteCreator());
+        this.detailsModal = Object.assign(document.createElement("dialog"), { className: "detailsModal" });
+        this.detailsModal.addEventListener("click", this.detailsModal.close);
+        document.body.append(this.detailsModal);
         this.modal = document.querySelector(".modal");
         this.modal.addEventListener("click", (event) => ScreenController.closeItemCreator(event));
         this.modal.classList.add("ledger");
@@ -28,6 +31,7 @@ export default class ScreenController {
         this.ledgerMainBar = document.querySelector(".main-container .ledger .ledger-inner .main-bar");
         this.ledgerMainBar.addEventListener("change", (event) => ScreenController.completeToDo(event));
         this.ledgerMainBar.addEventListener("click", (event) => ScreenController.deleteToDo(event));
+        this.ledgerMainBar.addEventListener("click", (event) => ScreenController.detailToDo(event));
         this.sideBarList = document.createElement("ul");
         this.sideBarList.addEventListener("click", (event) => ScreenController.showSelectedProject(event));
         this.displayItemsOnSideBar();
@@ -88,6 +92,17 @@ export default class ScreenController {
                     AppState.getSelectedProject().removeToDo(todo);
                     AppState.saveToStorage();
                     this.displayItemsOnMainBar();
+                }
+            }
+        }
+    }
+
+    static detailToDo(event) {
+        if (event.target.classList.contains("detailsBox")) {
+            for (let todo of AppState.getSelectedProject().toDoArray) {
+                if (event.target.closest(".toDoDivs").id === todo.id) {
+                    this.detailsModal.showModal();
+                    this.detailsModal.textContent = todo.description;
                 }
             }
         }
