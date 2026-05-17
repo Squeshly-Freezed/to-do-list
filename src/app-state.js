@@ -38,6 +38,7 @@ export default class AppState {
     }
     static isPastVisitor() {
         if (localStorage.getItem("hasVisited")) return true;
+        return false;
     }
     static setVisitorFlag() {
         localStorage.setItem("hasVisited", "true");
@@ -50,13 +51,12 @@ export default class AppState {
         localStorage.setItem("notes", JSON.stringify(this.noteArray));
     }
     static loadFromStorage() {
-        this.projectArray = JSON.parse(localStorage.getItem("projects")) ?? "";
-        this.noteArray = JSON.parse(localStorage.getItem("notes")) ?? "";
+        this.projectArray = JSON.parse(localStorage.getItem("projects")) ?? [];
+        this.noteArray = JSON.parse(localStorage.getItem("notes")) ?? [];
     }
     static hydrateProjects() {
         for (let i = 0; i < this.projectArray.length; i++) {
             this.projectArray[i] = Object.assign(new Project(), this.projectArray[i]);
-            this.noteArray[i] = Object.assign(new Note(), this.noteArray[i]);
             for (let j = 0; j < this.projectArray[i].toDoArray.length; j++) {
                 this.projectArray[i].toDoArray[j] = Object.assign(new ToDo(), this.projectArray[i].toDoArray[j]);
             }

@@ -19,7 +19,7 @@ export default class ScreenController {
         this.addNoteButton = document.querySelector("#note");
         this.addNoteButton.addEventListener("change", () => ScreenController.displayNoteCreator());
         this.detailsModal = Object.assign(document.createElement("dialog"), { className: "detailsModal" });
-        this.detailsModal.addEventListener("click", this.detailsModal.close);
+        this.detailsModal.addEventListener("click", () => this.detailsModal.close());
         document.body.append(this.detailsModal);
         this.modal = document.querySelector(".modal");
         this.modal.addEventListener("click", (event) => ScreenController.closeItemCreator(event));
@@ -55,7 +55,7 @@ export default class ScreenController {
         if (AppState.projectArray.length === 0) return;
         if (AppState.getSelectedProject().toDoArray.length > 0) {
             for (let todo of AppState.getSelectedProject().toDoArray) {
-                const toDoDivs = Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: todo.title, id: todo.id });
+                const toDoDivs = Object.assign(document.createElement("div"), { className: "toDoDivs", id: todo.id });
                 this.ledgerMainBar.append(toDoDivs);
                 toDoDivs.classList.add(todo.priority);
                 const titleBox = Object.assign(document.createElement("div"), { className: "titleBox", textContent: todo.title });
@@ -162,12 +162,13 @@ export default class ScreenController {
     static displayToDoCreator() {
         this.modalMainBar.textContent = "";
         const form = Object.assign(document.createElement("form"), { className: "form", id: "form"});
+        const today = new Date().toISOString().split("T")[0];
         form.addEventListener("submit", (event) => ScreenController.submitToDo(event)); 
         this.modalMainBar.append(form);
         form.append(Object.assign(document.createElement("input"), { className: "title", placeholder: "Title:", required: true, maxLength: "12" }));
         form.append(Object.assign(document.createElement("textarea"), { className: "description", placeholder: "Details:", style: "resize: none", maxLength: "2500"}));
         form.append(Object.assign(document.createElement("label"), { className: "date-label", for: "date", title: "Select the date", textContent: "Due Date:"}));
-        form.append(Object.assign(document.createElement("input"), { className: "date", id: "date", type: "date", required: true}));
+        form.append(Object.assign(document.createElement("input"), { className: "date", id: "date", type: "date", value: today, required: true}));
         form.append(Object.assign(document.createElement("label"), { className: "priority-label", for: "priority", title: "Select the priority", textContent: "Priority:"}));
         form.append(Object.assign(document.createElement("div"), { className: "buttonWrapper" }));
         document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { className: "radio-buttons", type: "radio", id: "priority-low", name: "radio", value: "LOW", required: true }));
@@ -230,6 +231,6 @@ export default class ScreenController {
         this.displayItemsOnSideBar();
         this.displayItemsOnMainBar();
         this.showEmptyProjectNotice()
-        this.sideBarList.children[AppState.selectedProjectIndex].classList.add("selected");
+        if (this.sideBarList.firstElementChild) this.sideBarList.children[AppState.selectedProjectIndex].classList.add("selected");
     }
 }
