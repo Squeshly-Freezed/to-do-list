@@ -210,6 +210,12 @@ body {
     color: red;
 }
 
+.projectNumberIcon {
+    background-color: rgb(85, 247, 239);
+    height: 1rem;
+    width: 1rem;
+}
+
 .LOW {
     border-left: clamp(0.1em, 0.4em, 0.7em) solid green;
 }
@@ -332,6 +338,7 @@ dialog:not([open]) {
     justify-content: center;
     color: whitesmoke;
     padding: 5px;
+    font-size: clamp(0.2rem, 1vw + 0.4rem, 2rem);
     .logo {
         height: 45px;
         width: 45px;

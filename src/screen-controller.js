@@ -44,7 +44,8 @@ export default class ScreenController {
         this.sideBarList.textContent = "";
         this.ledgerSideBar.append(this.sideBarList);
         for (let project of AppState.projectArray) {
-            this.sideBarList.append(Object.assign(document.createElement("li"), { className: "projectLi", textContent: `${project.name}\n` }));
+            const li = Object.assign(document.createElement("li"), { className: "projectLi", textContent: project.name });
+            this.sideBarList.append(li);
         }
     }
 
@@ -67,7 +68,7 @@ export default class ScreenController {
                     <path d="M21,37V19a2,2,0,0,0-4,0V37a2,2,0,0,0,4,0Z"/>
                     <path d="M31,37V19a2,2,0,0,0-4,0V37a2,2,0,0,0,4,0Z"/>
                     </svg>`
-                const binSVG = binWrapper.firstElementChild;    //finish
+                const binSVG = binWrapper.firstElementChild;
                 binSVG.classList.add("binSVG");
                 toDoDivs.append(titleBox);
                 toDoDivs.prepend(doneBox);
