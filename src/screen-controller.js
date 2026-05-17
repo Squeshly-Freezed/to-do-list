@@ -37,7 +37,8 @@ export default class ScreenController {
         this.sideBarList.addEventListener("click", (event) => ScreenController.showSelectedProject(event));
         this.displayItemsOnSideBar();
         this.displayItemsOnMainBar();
-        this.sideBarList.firstElementChild.classList.add("selected");
+        this.showEmptyProjectNotice();
+        if (this.sideBarList.firstElementChild) this.sideBarList.firstElementChild.classList.add("selected");
     }
 
     static displayItemsOnSideBar() {
@@ -51,6 +52,7 @@ export default class ScreenController {
 
     static displayItemsOnMainBar() {
         this.ledgerMainBar.textContent = "";
+        if (AppState.projectArray.length === 0) return;
         if (AppState.getSelectedProject().toDoArray.length > 0) {
             for (let todo of AppState.getSelectedProject().toDoArray) {
                 const toDoDivs = Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: todo.title, id: todo.id });
@@ -97,6 +99,7 @@ export default class ScreenController {
                     AppState.getSelectedProject().removeToDo(todo);
                     AppState.saveToStorage();
                     this.displayItemsOnMainBar();
+                    this.showEmptyProjectNotice();
                 }
             }
         }
@@ -126,6 +129,7 @@ export default class ScreenController {
     }
     
     static showEmptyProjectNotice() {
+        if (AppState.projectArray.length === 0) return;
         if (AppState.getSelectedProject().toDoArray.length === 0) {
             const noticeHeader = Object.assign(document.createElement("div"), { className: "noticeHeader", textContent: "Empty Project"});
             const notice = Object.assign(document.createElement("div"), { className: "notice", textContent: "Add a To-Do, or delete unused Project."});
@@ -225,6 +229,7 @@ export default class ScreenController {
         this.addToDoButton.checked = true;
         this.displayItemsOnSideBar();
         this.displayItemsOnMainBar();
-        this.sideBarList.firstElementChild.classList.add("selected");
+        this.showEmptyProjectNotice()
+        this.sideBarList.children[AppState.selectedProjectIndex].classList.add("selected");
     }
 }

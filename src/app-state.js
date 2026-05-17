@@ -22,7 +22,7 @@ export default class AppState {
         this.projectArray.push(project);
     }
     static removeProject(project) {
-        this.projectArray.splice(this.projectArray.indexOf(project, 0), 1);
+        if (this.projectArray.length > 0) this.projectArray.splice(this.projectArray.indexOf(project, 0), 1);
     }
     static setSelectedProject(index) {
         this.selectedProjectIndex = index;
