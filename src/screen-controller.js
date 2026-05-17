@@ -52,8 +52,9 @@ export default class ScreenController {
         this.ledgerMainBar.textContent = "";
         if (AppState.getSelectedProject().toDoArray.length > 0) {
             for (let todo of AppState.getSelectedProject().toDoArray) {
-                const toDoDivs = Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: `\t${todo.title}\n`, id: todo.id });
+                const toDoDivs = Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: todo.title, id: todo.id });
                 this.ledgerMainBar.append(toDoDivs);
+                const titleBox = Object.assign(document.createElement("div"), { className: "titleBox", textContent: todo.title });
                 const doneBox = Object.assign(document.createElement("input"), { type: "checkbox", className: "doneBox", checked: todo.completionStatus });
                 const dateBox = Object.assign(document.createElement("div"), { className: "dateBox", textContent: formatDate(todo.dueDate) });
                 const detailsBox = Object.assign(document.createElement("button"), { className: "detailsBox", textContent: "Details" });
@@ -67,6 +68,7 @@ export default class ScreenController {
                     </svg>`
                 const binSVG = binWrapper.firstElementChild;    //finish
                 binSVG.classList.add("binSVG");
+                toDoDivs.append(titleBox);
                 toDoDivs.prepend(doneBox);
                 toDoDivs.append(detailsBox);
                 toDoDivs.append(dateBox);
