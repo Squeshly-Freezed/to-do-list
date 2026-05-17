@@ -54,6 +54,7 @@ export default class ScreenController {
             for (let todo of AppState.getSelectedProject().toDoArray) {
                 const toDoDivs = Object.assign(document.createElement("div"), { className: "toDoDivs", textContent: todo.title, id: todo.id });
                 this.ledgerMainBar.append(toDoDivs);
+                toDoDivs.classList.add(todo.priority);
                 const titleBox = Object.assign(document.createElement("div"), { className: "titleBox", textContent: todo.title });
                 const doneBox = Object.assign(document.createElement("input"), { type: "checkbox", className: "doneBox", checked: todo.completionStatus });
                 const dateBox = Object.assign(document.createElement("div"), { className: "dateBox", textContent: formatDate(todo.dueDate) });
@@ -164,11 +165,11 @@ export default class ScreenController {
         form.append(Object.assign(document.createElement("input"), { className: "date", id: "date", type: "date", required: true}));
         form.append(Object.assign(document.createElement("label"), { className: "priority-label", for: "priority", title: "Select the priority", textContent: "Priority:"}));
         form.append(Object.assign(document.createElement("div"), { className: "buttonWrapper" }));
-        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { className: "radio-buttons", type: "radio", id: "priority-low", name: "radio", required: true}));
+        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { className: "radio-buttons", type: "radio", id: "priority-low", name: "radio", value: "LOW", required: true }));
         document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("label"), { className: "low-button", htmlFor: "priority-low", textContent: "LOW"}));
-        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { className: "radio-buttons", type: "radio", id: "priority-medium", name: "radio"}));
+        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { className: "radio-buttons", type: "radio", id: "priority-medium", name: "radio", value: "MEDIUM" }));
         document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("label"), { className: "medium-button", htmlFor: "priority-medium", textContent: "MEDIUM"}));
-        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { className: "radio-buttons", type: "radio", id: "priority-high", name: "radio"}));
+        document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("input"), { className: "radio-buttons", type: "radio", id: "priority-high", name: "radio", value: "HIGH" }));
         document.querySelector(".buttonWrapper").append(Object.assign(document.createElement("label"), { className: "high-button", htmlFor: "priority-high", textContent: "HIGH"}));
     }
 
@@ -190,13 +191,15 @@ export default class ScreenController {
     }
 
     static submitToDo(event) {
-        event.preventDefault();
-        const selectedTitle = this.modalMainBar.querySelector(".title").value;
-        const selectedDescription = this.modalMainBar.querySelector(".description").value;
-        const selectedDate = this.modalMainBar.querySelector(".date").value;
-        const selectedPriority = this.modalMainBar.querySelector(".radio-buttons:checked");
-        AppState.getSelectedProject().addToDo(selectedTitle, selectedDescription, selectedDate, selectedPriority);
-        this.saveAndClose();
+        if (AppState.getSelectedProject()) {
+            event.preventDefault();
+            const selectedTitle = this.modalMainBar.querySelector(".title").value;
+            const selectedDescription = this.modalMainBar.querySelector(".description").value;
+            const selectedDate = this.modalMainBar.querySelector(".date").value;
+            const selectedPriority = this.modalMainBar.querySelector(".radio-buttons:checked").value;
+            AppState.getSelectedProject().addToDo(selectedTitle, selectedDescription, selectedDate, selectedPriority);
+            this.saveAndClose();
+        }
     }
 
     static submitProject(event) {

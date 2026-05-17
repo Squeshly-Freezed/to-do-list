@@ -13,9 +13,3 @@ export default class ToDo {
         this.completionStatus = !this.completionStatus;
     }
 }
-
-export const Priority = Object.freeze({
-    LOW: "low",
-    MEDIUM: "medium",
-    HIGH: "high",
-});

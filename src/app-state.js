@@ -1,5 +1,5 @@
 import Project from "./project.js";
-import ToDo, { Priority } from "./to-do.js";
+import ToDo from "./to-do.js";
 import Note from "./note.js";
 
 export default class AppState {

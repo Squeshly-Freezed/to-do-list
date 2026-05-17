@@ -165,6 +165,9 @@ body {
                 transform: scale(1.01);
                 box-shadow: 2px 2px 2px 2px grey;
             }
+            .titleBox {
+                margin-right: calc(0.3em + 1vw);
+            }
             .doneBox {
                 accent-color: rgb(85, 247, 239);
                 height: calc(1vw + 0.5rem);
@@ -199,21 +202,22 @@ body {
                 flex-shrink: 0;
                 cursor: pointer;
             }
-            .lowPriority {
-                border-left: 3px solid green;
-            }
-            .mediumPriority {
-                border-left: 3px solid orange;
-            }
-            .highPriority {
-                border-left: 3px solid red;
-            }
         }
     }
 }
 
 .selected {
     color: red;
+}
+
+.LOW {
+    border-left: clamp(0.1em, 0.4em, 0.7em) solid green;
+}
+.MEDIUM {
+    border-left: clamp(0.1em, 0.4em, 0.7em) solid orange;
+}
+.HIGH {
+    border-left: clamp(0.1em, 0.4em, 0.7em) solid red;
 }
 
 .modal, .detailsModal {
